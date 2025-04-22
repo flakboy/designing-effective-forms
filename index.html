@@ -17,29 +17,32 @@
     <div class="container">
         <h1>Uzupełnij formularz</h1>
         <form id="form">
-            <div class="mb-3">
-                <label for="firstName" class="form-label">Imię</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Wpisz imię" required>
-            </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Nazwisko</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Wpisz nazwisko" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">E-mail address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="example@mail.com">
-            </div>
-            <div class="row mb-3">
-                <label for="phoneNumber" class="form-label">Numer telefonu komórkowego</label>
-                <div class="input-group">
-                    <select class="form-select" id="countryCode" aria-label="Wybierz numer kierunkowy">
-                        <option selected>Wybierz...</option>
-                        <option value="+48">+48 (Polska)</option>
-                        <option value="+1">+1 (Stany Zjednoczone)</option>
-                        <!-- Dodaj więcej opcji, jeśli jest to potrzebne -->
-                    </select>
-                    <input type="text" class="form-control" id="phoneNumber" placeholder="Wpisz numer komórkowy"
-                        required>
+            
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Imię</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Wpisz imię" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Nazwisko</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Wpisz nazwisko" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">E-mail address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="example@mail.com">
+                </div>
+                <div class="row mb-3">
+                    <label for="phoneNumber" class="form-label">Numer telefonu komórkowego</label>
+                    <div class="input-group">
+                        <select class="form-select" id="countryCode" aria-label="Wybierz numer kierunkowy">
+                            <option selected>Wybierz...</option>
+                            <!-- <option value="+48">+48 (Polska)</option>
+                            <option value="+1">+1 (Stany Zjednoczone)</option> -->
+                            <!-- Dodaj więcej opcji, jeśli jest to potrzebne -->
+                        </select>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Wpisz numer komórkowy"
+                            required>
+                    </div>
                 </div>
             </div>
             <div class="mb-3">
@@ -61,6 +64,24 @@
                 <label for="zipCode" class="form-label">Kod pocztowy</label>
                 <input type="text" class="form-control" id="zipCode" placeholder="Wpisz kod pocztowy" required>
             </div>
+
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="vatUE">
+                <label class="form-check-label" for="vatUE">VAT UE</label>
+            </div>
+            <div class="mb-3">
+                <label for="vatNumber" class="form-label">VAT Number</label>
+                <input type="text" class="form-control" id="vatNumber" aria-describedby="vatHelp">
+                <div id="vatHelp" class="form-text">Kod kraju państwa członkowskiego i seria cyfr unikalnych dla tego
+                    podmiotu gospodarczego.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="invoiceData" class="form-label">Dane do faktury</label>
+                <textarea class="form-control" id="invoiceData" rows="3" placeholder="Wpisz dane do faktury"></textarea>
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">Rodzaj przesyłki</label>
                 <div class="form-check">
@@ -99,21 +120,6 @@
                 </div>
             </div>
 
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="vatUE">
-                <label class="form-check-label" for="vatUE">VAT UE</label>
-            </div>
-            <div class="mb-3">
-                <label for="vatNumber" class="form-label">VAT Number</label>
-                <input type="text" class="form-control" id="vatNumber" aria-describedby="vatHelp">
-                <div id="vatHelp" class="form-text">Kod kraju państwa członkowskiego i seria cyfr unikalnych dla tego
-                    podmiotu gospodarczego.</div>
-            </div>
-
-            <div class="mb-3">
-                <label for="invoiceData" class="form-label">Dane do faktury</label>
-                <textarea class="form-control" id="invoiceData" rows="3" placeholder="Wpisz dane do faktury"></textarea>
-            </div>
 
             <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#form-feedback-modal">submit</button>

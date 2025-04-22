@@ -1,6 +1,7 @@
 let clickCount = 0;
 
 const countryInput = document.getElementById("country");
+const countryCodeInput = document.getElementById("countryCode");
 const myForm = document.getElementById("form");
 const modal = document.getElementById("form-feedback-modal");
 const clicksInfo = document.getElementById("click-count");
@@ -17,11 +18,30 @@ async function fetchAndFillCountries() {
             throw new Error("Błąd pobierania danych");
         }
         const data = await response.json();
-        const countries = data.map((country) => country.name.common);
-        countryInput.innerHTML = countries
+
+        const countriesNames = data.map((country) => country.name.common);
+        countryInput.innerHTML = countriesNames
             .sort()
             .map((country) => `<option value="${country}">${country}</option>`)
             .join("");
+
+        const countriesCodes = data
+            .sort((a, b) => a.name.common.localeCompare(b.name.common))
+            .filter((country) => country.idd && country.idd.suffixes)
+            .map((country) => {
+                return {
+                    name: country.name.common,
+                    code: country.idd.root + country.idd.suffixes.join(""),
+                };
+            });
+
+        console.log(countriesCodes);
+        countriesCodes.forEach((country) => {
+            let optionElem = document.createElement("option");
+            optionElem.value = country.code;
+            optionElem.textContent = `${country.code} (${country.name})`;
+            countryCodeInput.appendChild(optionElem);
+        });
     } catch (error) {
         console.error("Wystąpił błąd:", error);
     }
@@ -43,7 +63,7 @@ function getCountryByIP() {
 function getCountryCode(countryName) {
     const apiUrl = `https://restcountries.com/v3.1/name/${countryName}?fullText=true`;
 
-    fetch(apiUrl)
+    return fetch(apiUrl)
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Błąd pobierania danych");
@@ -53,9 +73,8 @@ function getCountryCode(countryName) {
         .then((data) => {
             const countryCode =
                 data[0].idd.root + data[0].idd.suffixes.join("");
-            // TODO inject countryCode to form
 
-            console.log(countryCode);
+            return countryCode;
         })
         .catch((error) => {
             console.error("Wystąpił błąd:", error);
@@ -78,5 +97,5 @@ function getCountryCode(countryName) {
         }
     });
 
-    getCountryCode(country);
+    getCountryCode(country).then((code) => (countryCodeInput.value = code));
 })();
