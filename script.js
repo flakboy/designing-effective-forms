@@ -28,11 +28,13 @@ async function fetchAndFillCountries() {
         const countriesCodes = data
             .sort((a, b) => a.name.common.localeCompare(b.name.common))
             .filter((country) => country.idd && country.idd.suffixes)
-            .map((country) => {
-                return {
-                    name: country.name.common,
-                    code: country.idd.root + country.idd.suffixes.join(""),
-                };
+            .flatMap((country) => {
+                return country.idd.suffixes.map((suffix) => {
+                    return {
+                        name: country.name.common,
+                        code: country.idd.root + suffix,
+                    };
+                });
             });
 
         console.log(countriesCodes);
@@ -87,7 +89,7 @@ function getCountryCode(countryName) {
 
     const country = await getCountryByIP();
 
-    fetchAndFillCountries().then(() => {
+    await fetchAndFillCountries().then(() => {
         const optionIndex = [...countryInput.options]
             .map((option) => option.value)
             .indexOf(country);
@@ -97,5 +99,7 @@ function getCountryCode(countryName) {
         }
     });
 
-    getCountryCode(country).then((code) => (countryCodeInput.value = code));
+    await getCountryCode(country).then((code) => {
+        countryCodeInput.value = code;
+    });
 })();
